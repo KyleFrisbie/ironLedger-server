@@ -17,4 +17,5 @@ module.exports = function(app) {
     // workout api
     app.get('/api/workouts', WorkoutsAPI.getAllWorkouts);
     app.post('/api/workouts/add_workout', WorkoutsAPI.insertWorkout);
+    app.post('/api/workouts/remove_workout', WorkoutsAPI.removeWorkout);
 };

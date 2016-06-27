@@ -1,9 +1,13 @@
 const Workout = require('../../models/workout_model');
 
 exports.getAllWorkouts = function (req, res, next) {
-   const workouts = Workout.find();
-   return res.json({workouts});
-}
+   const workouts = Workout.find(function(err, workouts) {
+      if (err) {
+         return next(err);
+      }
+      return res.json({workouts});
+   });
+};
 
 exports.insertWorkout = function (req, res, next) {
    const workout_name = req.body.workout_name;
@@ -16,6 +20,19 @@ exports.insertWorkout = function (req, res, next) {
       if (err) {
          return next(err)
       }
-   })
+   });
    res.send({workout});
-}
+};
+
+
+exports.removeWorkout = function (req, res, next) {
+   const _id = req.body.workout_id;
+   console.log("_id: ", _id);
+   Workout.findOne({id: _id}).remove( function (err, workout) {
+      console.log("workout: ", workout);
+      if (err) {
+         return next(err);
+      }
+      return res.json({workout});
+   }).exec();
+};
