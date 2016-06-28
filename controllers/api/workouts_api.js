@@ -27,12 +27,10 @@ exports.insertWorkout = function (req, res, next) {
 
 exports.removeWorkout = function (req, res, next) {
    const _id = req.body.workout_id;
-   console.log("_id: ", _id);
-   Workout.findOne({id: _id}).remove( function (err, workout) {
-      console.log("workout: ", workout);
+   Workout.findByIdAndRemove(_id, function (err, workout) {
       if (err) {
          return next(err);
       }
       return res.json({workout});
-   }).exec();
+   });
 };
