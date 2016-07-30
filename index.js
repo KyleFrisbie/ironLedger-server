@@ -6,9 +6,10 @@ const morgan = require('morgan');
 const app = express();
 const router = require('./router');
 const mongoose = require('mongoose');
+const config = require('./config');
 
 // DB Setup
-mongoose.connect('mongodb://localhost:auth/iron_ledger');
+mongoose.connect(config.mongoURI[app.settings.env]);
 
 // App Setup
 app.use(morgan('combined'));
@@ -20,3 +21,5 @@ const port = process.env.PORT || 8080;
 const server = http.createServer(app);
 server.listen(port);
 console.log('Server listening on :', port);
+
+module.exports = server;
