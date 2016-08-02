@@ -9,7 +9,14 @@ const mongoose = require('mongoose');
 const config = require('./config');
 
 // DB Setup
-mongoose.connect(config.mongoURI[app.settings.env]);
+mongoose.connect(config.mongoURI[app.settings.env], function (err, res) {
+  if(err) {
+    console.log('Error connecting to database: ' + err);
+  } else {
+    console.log('Connected to Database: ', + app.settings.env);
+  }
+});
+console.log('server_path: ', config.mongoURI[app.settings.env]);
 
 // App Setup
 app.use(morgan('combined'));

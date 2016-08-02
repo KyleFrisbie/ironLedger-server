@@ -7,7 +7,8 @@ var server = require('../index');
 
 chai.use(chaiHttp);
 
-process.env.NODE_EN = 'test';
+process.env.NODE_ENV = 'test';
+console.log('server_path', process.env.NODE_ENV);
 
 describe('workouts-api', function () {
   it('should add a single workout to the database using /api/workouts/add_workout POST\n' +
@@ -55,7 +56,8 @@ describe('workouts-api', function () {
 });
 
 describe('exercises-api', function () {
-  it('should add a single exercise to the database using /api/exercises/add_exercise POST', function (done) {
+  it('should add a single exercise to the database using /api/exercises/add_exercise POST\n' +
+    'should then remove exercise from the db using /api/exercises/remove_exercise POST', function (done) {
     let exercise_name = faker.random.word();
     let author_name = faker.fake('{{name.firstName}} {{name.lastName}}');
     let exercise_id;
