@@ -4,6 +4,8 @@ var faker = require('faker');
 
 var should = chai.should();
 var server = require('../index');
+var Workouts = require('../models/workout_model');
+var Exercises = require('../models/exercise_model');
 
 chai.use(chaiHttp);
 
@@ -11,6 +13,8 @@ process.env.NODE_ENV = 'test';
 console.log('server_path', process.env.NODE_ENV);
 
 describe('workouts-api', function () {
+  Workouts.collection.drop();
+
   it('should add a single workout to the database using /api/workouts/add_workout POST\n' +
     'should then remove workout from the db using /api/workouts/remove_workout POST', function (done) {
     let workout_name = faker.random.word();
@@ -56,6 +60,8 @@ describe('workouts-api', function () {
 });
 
 describe('exercises-api', function () {
+  Exercises.collection.drop();
+
   it('should add a single exercise to the database using /api/exercises/add_exercise POST\n' +
     'should then remove exercise from the db using /api/exercises/remove_exercise POST', function (done) {
     let exercise_name = faker.random.word();
